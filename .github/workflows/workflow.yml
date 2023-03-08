@@ -29,8 +29,8 @@ jobs:
       - name: Display
         run: cat example.txt
         
-      - name: "test ${{ env.GITHUB_REPOSITORY }}"
-        run: "echo ${{ env.GITHUB_REPOSITORY }}"
+      - name: "test ${{ github.repository }}"
+        run: "echo ${{ github.repository }}"
 
   # This workflow contains a single job called "build"
   test:
