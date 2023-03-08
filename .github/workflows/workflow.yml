@@ -16,7 +16,7 @@ on:
 
 env: 
   revisionId: "${{ github.sha }}"
-  buildNumber: "${{ github.run.number }}"
+  buildNumber: "${{ github.run_number }}"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
