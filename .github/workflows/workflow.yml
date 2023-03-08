@@ -17,7 +17,6 @@ on:
   # Defines workflow parameters for manual execution.
   workflow_dispatch:
     inputs:
-      ref:
       MAIN_CODE_BRANCH:
         default: 'master'
         required: true
@@ -66,6 +65,7 @@ jobs:
           echo "${{ env.revisionId }}" > example.txt
           echo "${{ env.buildNumber }}" >> example.txt
           echo "${{ inputs.MAIN_CODE_BRANCH }}" >> example.txt
+          echo "${{ toJSON(inputs) }} >> example.txt
           export >> example.txt
         
       - name: Display
