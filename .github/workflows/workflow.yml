@@ -64,6 +64,7 @@ jobs:
         run: | 
           echo "${{ env.revisionId }}" > example.txt
           echo "${{ env.buildNumber }}" >> example.txt
+          echo "${{ inputs.MAIN_CODE_BRANCH }}" >> example.txt
           export >> example.txt
         
       - name: Display
