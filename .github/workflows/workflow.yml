@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
     inputs:
       MAIN_CODE_BRANCH:
-        default: "${{ github.ref_name }}"
+        default: "${{ github.ref.name }}"
         required: false
         type: string
       PYCAPT_BRANCH:
