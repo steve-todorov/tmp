@@ -16,6 +16,7 @@ on:
 
 env: 
   revisionId: "${{ github.sha }}"
+  revisionNumber: "${{ github.event.number }}"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,7 +29,9 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo "${{ env.revisionId }}" > example.txt
+        run: | 
+          echo "${{ env.revisionId }}" > example.txt
+          echo "${{ env.revisionNumber }}" >> example.txt
         
       - name: Display
         run: cat example.txt
