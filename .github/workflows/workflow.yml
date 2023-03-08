@@ -65,10 +65,14 @@ jobs:
           echo "${{ env.revisionId }}" > example.txt
           echo "${{ env.buildNumber }}" >> example.txt
           echo "${{ inputs.MAIN_CODE_BRANCH }}" >> example.txt
+          echo "${{ toJSON(inputs) }}" >> example.txt
+          echo "${{ github.workspace }}" >> example.txt
           export >> example.txt
         
       - name: Display
-        run: cat example.txt
+        run: |
+          pwd
+          cat example.txt
         
 #      - name: "test ${{ github.repository }}"
 #        run: "echo ${{ github.repository }}"
