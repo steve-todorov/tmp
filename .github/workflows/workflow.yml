@@ -70,7 +70,9 @@ jobs:
           export >> example.txt
         
       - name: Display
-        run: cat example.txt
+        run: |
+          pwd
+          cat example.txt
         
 #      - name: "test ${{ github.repository }}"
 #        run: "echo ${{ github.repository }}"
