@@ -32,6 +32,12 @@ jobs:
       - name: "test ${{ github.repository }}"
         run: "echo ${{ github.repository }}"
 
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: example.txt
+          path: example.txt
+
   # This workflow contains a single job called "build"
   test:
     # The type of runner that the job will run on
@@ -41,5 +47,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: example.txt
+          path: example.txt
+
       - name: Display
         run: cat example.txt
