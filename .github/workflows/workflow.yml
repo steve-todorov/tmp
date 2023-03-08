@@ -18,37 +18,32 @@ on:
   workflow_dispatch:
     inputs:
       MAIN_CODE_BRANCH:
-        default: "${{ github.run_number }}"
-        required: false
+        default: 'master'
+        required: true
         type: string
       PYCAPT_BRANCH:
         default: 'master'
-        required: false
+        required: true
         type: string
       QA_INTEGRATION_TESTS_BRANCH:
         default: 'master'
-        required: false
+        required: true
         type: string
       LIBDEV_BRANCH:
         default: 'default'
-        required: false
+        required: true
         type: string
-      USE_LIBDEV_CACHE:
-        default: false
-        required: false
-        type: boolean
-        description: "Use existing libdev (for build debugging purposes only!)"
       APP_MAJOR:
         default: 5
-        required: false
+        required: true
         type: number
       APP_MINOR:
         default: 7
-        required: false
+        required: true
         type: number
       APP_RELEASE:
         default: 0
-        required: false
+        required: true
         type: number
       RUN_QA_INTEGRATION_TESTS:
         default: true
