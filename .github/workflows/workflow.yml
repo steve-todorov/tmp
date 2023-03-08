@@ -47,7 +47,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
+      - run: export | rep -i workspace
+      
+      - run: "echo ${{ env.GITHUB_WORKSPACE }}"
+  
       - name: Download a single artifact
         uses: actions/download-artifact@v3
         with:
