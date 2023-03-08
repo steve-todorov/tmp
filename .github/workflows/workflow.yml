@@ -62,7 +62,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: | 
-          echo "${{ env.revisionId }}" > example.txt
+          echo "${{ env.GITHUB_WORKSPACE }}" > example.txt
+          echo "${{ env.revisionId }}" >> example.txt
           echo "${{ env.buildNumber }}" >> example.txt
           echo "${{ inputs.MAIN_CODE_BRANCH }}" >> example.txt
           echo "${{ toJSON(inputs) }}" >> example.txt
