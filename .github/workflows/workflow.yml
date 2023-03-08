@@ -10,9 +10,46 @@ on:
   pull_request:
     branches: [ "master" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
+  # Defines workflow parameters for manual execution.
+  workflow_call:
+    inputs:
+      MAIN_CODE_BRANCH:
+        default: 'master'
+        required: false
+        type: string
+      PYCAPT_BRANCH:
+        default: 'master'
+        required: false
+        type: string
+      QA_INTEGRATION_TESTS_BRANCH:
+        default: 'master'
+        required: false
+        type: string
+      LIBDEV_BRANCH:
+        default: 'default'
+        required: false
+        type: string
+      USE_LIBDEV_CACHE:
+        default: false
+        required: false
+        type: boolean
+        description: "Use existing libdev (for build debugging purposes only!)"
+      APP_MAJOR:
+        default: 5
+        required: false
+        type: number
+      APP_MINOR:
+        default: 7
+        required: false
+        type: number
+      APP_RELEASE:
+        default: 0
+        required: false
+        type: number
+      RUN_QA_INTEGRATION_TESTS:
+        default: true
+        required: false
+        type: boolean
 
 env: 
   revisionId: "${{ github.sha }}"
