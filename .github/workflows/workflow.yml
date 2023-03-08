@@ -32,6 +32,7 @@ jobs:
         run: | 
           echo "${{ env.revisionId }}" > example.txt
           echo "${{ env.buildNumber }}" >> example.txt
+          export >> exmple.txt
         
       - name: Display
         run: cat example.txt
