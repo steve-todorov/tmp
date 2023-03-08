@@ -17,6 +17,7 @@ on:
   # Defines workflow parameters for manual execution.
   workflow_dispatch:
     inputs:
+      ref:
       MAIN_CODE_BRANCH:
         default: 'master'
         required: true
