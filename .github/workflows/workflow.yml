@@ -18,7 +18,6 @@ on:
   workflow_dispatch:
     inputs:
       MAIN_CODE_BRANCH:
-        default: 'master'
         required: true
         type: string
       PYCAPT_BRANCH:
