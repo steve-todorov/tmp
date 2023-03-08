@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: example.txt
-          path: example.txt
+          path: "${{ github.GITHUB_WORKSPACE }}/example.txt"
 
       - name: Display
         run: cat example.txt
