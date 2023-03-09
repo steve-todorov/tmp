@@ -85,7 +85,7 @@ jobs:
       - name: Display
         shell: powershell
         run: |
-          Write-Output ${{ steps.configFlags.outputs.cmakeSignCommandFlag }}
+          Write-Output "${{ steps.configFlags.outputs.cmakeSignCommandFlag }}"
           cat example.txt
         
 #      - name: "test ${{ github.repository }}"
