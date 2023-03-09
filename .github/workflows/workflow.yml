@@ -76,9 +76,9 @@ jobs:
           "cmakeSignCommandFlag=" >> $env:GITHUB_OUTPUT
           "timestampServersConfigFlag=" >> $env:GITHUB_OUTPUT
           "signerCheckFlag=" >> $env:GITHUB_OUTPUT
-          Write-Output "mainCodeBranch: $env:GITHUB_INPUTS_MAIN_CODE_BRANCH"
+          Write-Output "mainCodeBranch: ${env:GITHUB_INPUTS_MAIN_CODE_BRANCH}"
           if(![string]::IsNullOrWhiteSpace($env:GITHUB_INPUTS_MAIN_CODE_BRANCH)) {
-            "cmakeSignCommandFlag=$env:GITHUB_INPUTS_MAIN_CODE_BRANCH" >> $env:GITHUB_OUTPUT
+            "cmakeSignCommandFlag=${env:GITHUB_INPUTS_MAIN_CODE_BRANCH}" >> $env:GITHUB_OUTPUT
           }
 
 
