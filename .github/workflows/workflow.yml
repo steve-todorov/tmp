@@ -67,8 +67,19 @@ jobs:
           echo "${{ inputs.MAIN_CODE_BRANCH }}" >> example.txt
           echo "${{ toJSON(inputs) }}" >> example.txt
           echo "${{ github.workspace }}" >> example.txt
-          export >> example.txt
-        
+
+      - name: Get dynamic build configuration flags.
+        shell: powershell
+        id: configFlags
+        run: |
+          # Set default empty values
+          "cmakeSignCommandFlag=" >> $env:GITHUB_OUTPUT
+          "timestampServersConfigFlag=" >> $env:GITHUB_OUTPUT
+          "signerCheckFlag=" >> $env:GITHUB_OUTPUT
+          Write-Output $env:GITHUB_INPUTS_MAIN_CODE_BRANCH
+
+
+
       - name: Display
         run: |
           pwd
