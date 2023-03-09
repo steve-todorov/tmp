@@ -77,7 +77,7 @@ jobs:
           "timestampServersConfigFlag=" >> $env:GITHUB_OUTPUT
           "signerCheckFlag=" >> $env:GITHUB_OUTPUT
           Write-Output $env:GITHUB_INPUTS_MAIN_CODE_BRANCH
-          if($env:GITHUB_INPUTS_MAIN_CODE_BRANCH !== "") {
+          if($env:GITHUB_INPUTS_MAIN_CODE_BRANCH != "") {
             "cmakeSignCommandFlag=($env:GITHUB_INPUTS_MAIN_CODE_BRANCH" >> $env:GITHUB_OUTPUT
           }
 
