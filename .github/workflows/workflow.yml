@@ -78,7 +78,7 @@ jobs:
           "signerCheckFlag=" >> $env:GITHUB_OUTPUT
           Write-Output "INPUT_MAIN_CODE_BRANCH: ${{ env.mainCodeBranch }}"
           if(![string]::IsNullOrWhiteSpace("${{ env.mainCodeBranch }}")) {
-            "cmakeSignCommandFlag=${{ env.mainCodeBranch }}" >> $env:GITHUB_OUTPUT
+            "cmakeSignCommandFlag=-Densure.this.works=${{ env.mainCodeBranch }}" >> $env:GITHUB_OUTPUT
           }
 
 
