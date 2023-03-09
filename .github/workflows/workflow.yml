@@ -82,11 +82,10 @@ jobs:
           }
 
 
-
       - name: Display
         run: |
           pwd
-          echo ${{ steps.configFlags.outputs.cmakeSignCommandFlag }}
+          Write-Output ${{ steps.configFlags.outputs.cmakeSignCommandFlag }}
           cat example.txt
         
 #      - name: "test ${{ github.repository }}"
