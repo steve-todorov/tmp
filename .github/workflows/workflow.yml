@@ -48,7 +48,8 @@ on:
 env: 
   revisionId: "${{ github.sha }}"
   buildNumber: "${{ github.run_number }}"
-  mainCodeBranch:  ${{ inputs.MAIN_CODE_BRANCH == '' && github.ref || inputs.MAIN_CODE_BRANCH }}
+  IS_PR: ${{ github.event_name == 'pull_request' }}
+  MAIN_CODE_BRANCH:  ${{ inputs.MAIN_CODE_BRANCH == '' && github.ref_name || inputs.MAIN_CODE_BRANCH }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
