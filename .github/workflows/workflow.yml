@@ -65,6 +65,7 @@ jobs:
         run: | 
           echo "${{ env.revisionId }}" > example.txt
           echo "${{ env.buildNumber }}" >> example.txt
+          echo "${{ env.MAIN_CODE_BRANCH }}" >> example.txt
           echo "${{ inputs.MAIN_CODE_BRANCH }}" >> example.txt
           echo "${{ toJSON(inputs) }}" >> example.txt
           echo "${{ github.workspace }}" >> example.txt
@@ -77,9 +78,9 @@ jobs:
           "cmakeSignCommandFlag=" >> $env:GITHUB_OUTPUT
           "timestampServersConfigFlag=" >> $env:GITHUB_OUTPUT
           "signerCheckFlag=" >> $env:GITHUB_OUTPUT
-          Write-Output "INPUT_MAIN_CODE_BRANCH: ${{ env.mainCodeBranch }}"
-          if(![string]::IsNullOrWhiteSpace("${{ env.mainCodeBranch }}")) {
-            "cmakeSignCommandFlag=-Densure.this.works=${{ env.mainCodeBranch }}" >> $env:GITHUB_OUTPUT
+          Write-Output "INPUT_MAIN_CODE_BRANCH: ${{ env.MAIN_CODE_BRANCH }}"
+          if(![string]::IsNullOrWhiteSpace("${{ env.MAIN_CODE_BRANCH }}")) {
+            "cmakeSignCommandFlag=-Densure.this.works=${{ env.MAIN_CODE_BRANCH }}" >> $env:GITHUB_OUTPUT
           }
 
 
