@@ -1,0 +1,15 @@
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  up:
+    runs-on: ubuntu-22.04
+    #runs-on: macos-13
+    steps:
+      - name: Echo
+        run: |
+          echo $RUNNER_TEMP
+          echo ${{ github.repository }}
+          echo ${{ github.event.pull_request.head.repo.full_name }}
+          echo ${{ github.event.pull_request.head.repo.full_name != 'steve-todorov/tmp-tmp' || github.repository != 'steve-todorov/tmp-tmp' }}
