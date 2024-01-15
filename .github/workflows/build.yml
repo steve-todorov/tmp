@@ -13,3 +13,4 @@ jobs:
           echo ${{ github.repository }}
           echo ${{ github.event.pull_request.head.repo.full_name }}
           echo ${{ github.event.pull_request.head.repo.full_name != 'steve-todorov/tmp-tmp' || github.repository != 'steve-todorov/tmp-tmp' }}
+          echo ${{ github.repository != vars.CURRENT_REPO || github.event.pull_request.head.repo.full_name != vars.CURRENT_REPO }}
