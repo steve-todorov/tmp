@@ -27,4 +27,5 @@ jobs:
         run: |
           echo "Var sum: $(("${{ vars.NUM }}" + 1))"
       - name: Sleep
+        run: |
           sleep 60
