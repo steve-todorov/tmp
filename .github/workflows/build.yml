@@ -14,7 +14,7 @@ jobs:
     #runs-on: macos-13
     concurrency:
       group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
-      cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && false || true }}
+      cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 0 || 1 }}
     steps:
       - name: Echo
         run: |
@@ -29,7 +29,7 @@ jobs:
           echo "Is main: ${{ github.ref == 'refs/heads/main' && 'yes' || 'no' }}"
           echo "Is production: ${{ github.ref == 'refs/heads/production' && 'yes' || 'no' }}"
           echo "Concurrency group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}"
-          echo "Cancel in progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && false || true }}"
+          echo "Cancel in progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'false' || 'true' }}"
 
       - name: Counter
         id: incremented
