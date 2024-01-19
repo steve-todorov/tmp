@@ -35,6 +35,7 @@ jobs:
         if: success() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY == true)
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.PAT }}
           script: |
             github.rest.actions.updateRepoVariable({ 
               "owner": "${{ github.repository_owner }}", 
