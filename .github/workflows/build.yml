@@ -24,6 +24,7 @@ jobs:
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
+          echo "Deploy: ${{ vars.DEPLOY }}"
           echo "Concurrency group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && 'concurrency-counter-increment' || github.run_id }}"
           echo "Cancel in progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && false || true }}"
 
