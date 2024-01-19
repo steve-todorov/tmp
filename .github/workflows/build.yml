@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-22.04
     #runs-on: macos-13
     concurrency:
-      group: ${{ (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && 'concurrency-counter-increment' || github.ref }}
-      cancel-in-progress: ${{ (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && false || true }}
+      group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && 'concurrency-counter-increment' || github.ref }}
+      cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && false || true }}
     steps:
       - name: Echo
         run: |
@@ -23,9 +23,26 @@ jobs:
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
+
       - name: Counter
+        id: incremented
         run: |
-          echo "Var sum: $(("${{ vars.NUM }}" + 1))"
+          NUM=$(("${{ vars.NUM }}" + 1))
+          echo "Var sum: $NUM"
+          echo "number=$NUM" >> "$GITHUB_OUTPUT"
+
+      - name: Update vars.NUM
+        if: success() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY == true)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.actions.updateRepoVariable({ 
+              "owner": "${{ github.repository_owner }}", 
+              "repo": "${{ github.event.repository.name }}",
+              "name": "NUM", 
+              "value": "${{ steps.incremented.outputs.number }}" 
+            });
+            
       - name: Sleep
         run: |
-          sleep 60
+          sleep 30
