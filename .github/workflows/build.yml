@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-22.04
     #runs-on: macos-13
     concurrency:
-      group: ${{ vars.DEPLOY == true && 'concurrency-counter-increment' || github.ref }}
-      cancel-in-progress: ${{ vars.DEPLOY == true && false || true }}
+      group: ${{ (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && 'concurrency-counter-increment' || github.ref }}
+      cancel-in-progress: ${{ (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && false || true }}
     steps:
       - name: Echo
         run: |
