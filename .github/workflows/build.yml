@@ -14,8 +14,8 @@ jobs:
     #runs-on: macos-13
     concurrency:
       group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && 'concurrency-counter-increment' || github.run_id }}
+      # does not work dynamically.
       #cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && false || true }}
-      cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || vars.DEPLOY == true) && false || true }}
     steps:
       - name: Echo
         run: |
