@@ -10,9 +10,8 @@ jobs:
       - name: Echo
         run: |
           echo $RUNNER_TEMP
-          echo ${{ github.repository }}
-          echo Is fork: ${{ github.event.pull_request.head.repo.fork == true }}
-          echo Repo: ${{ github.event.pull_request.head.repo.full_name }}
-          echo ${{ github.event.pull_request.head.repo.full_name != 'steve-todorov/tmp-tmp' || github.repository != 'steve-todorov/tmp-tmp' }}
-          echo ${{ github.repository != vars.CURRENT_REPO || github.event.pull_request.head.repo.full_name != vars.CURRENT_REPO }}
-          echo ${{ github.head_ref || github.ref_name }}
+          echo "github.repository: ${{ github.repository }}"
+          echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
+          echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "Ref: ${{ github.head_ref || github.ref_name }}"
+          echo "Var: ${{ vars.NUM + 1 }}"
