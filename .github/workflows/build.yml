@@ -8,17 +8,13 @@ on:
         default: false
         required: false
 
-env:
-  CONCURRENCY_GROUP:  ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
-  IS_DEPLOYABLE: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'true' || 'false' }}
-
 jobs:
   up:
     runs-on: ubuntu-22.04
     #runs-on: macos-13
     concurrency:
-      group: ${{ env.CONCURRENCY_GROUP }}
-      cancel-in-progress: ${{  env.IS_DEPLOYABLE == 'true' && false || true }}
+      group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
+      cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && false || true }}
     steps:
       - name: Echo
         run: |
@@ -30,7 +26,6 @@ jobs:
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
           echo "Deploy: ${{ inputs.DEPLOY }}"
           echo "Is deploy: ${{ inputs.DEPLOY && 'yes' || 'no' }}"
-          echo "IS_DEPLOYABLE: ${{ env.IS_DEPLOYABLE }}"
           echo "Is main: ${{ github.ref == 'refs/heads/main' && 'yes' || 'no' }}"
           echo "Is production: ${{ github.ref == 'refs/heads/production' && 'yes' || 'no' }}"
           echo "Concurrency group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}"
