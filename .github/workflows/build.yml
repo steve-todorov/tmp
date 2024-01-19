@@ -8,6 +8,9 @@ on:
         default: false
         required: false
 
+env:
+  IS_DEPLOYABLE: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && true || false }}
+
 jobs:
   up:
     runs-on: ubuntu-22.04
@@ -26,6 +29,7 @@ jobs:
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
           echo "Deploy: ${{ inputs.DEPLOY }}"
           echo "Is deploy: ${{ inputs.DEPLOY && 'yes' || 'no' }}"
+          echo "IS_DEPLOYABLE: ${{ env.IS_DEPLOYABLE }}
           echo "Is main: ${{ github.ref == 'refs/heads/main' && 'yes' || 'no' }}"
           echo "Is production: ${{ github.ref == 'refs/heads/production' && 'yes' || 'no' }}"
           echo "Concurrency group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}"
