@@ -9,15 +9,16 @@ on:
         required: false
 
 env:
-  IS_DEPLOYABLE: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && true || false }}
+  CONCURRENCY_GROUP:  ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
+  IS_DEPLOYABLE: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'true' || 'false' }}
 
 jobs:
   up:
     runs-on: ubuntu-22.04
     #runs-on: macos-13
     concurrency:
-      group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
-      cancel-in-progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && false || true }}
+      group: ${{ env.CONCURRENCY_GROUP }}
+      cancel-in-progress: ${{  env.IS_DEPLOYABLE == 'true' && false || true }}
     steps:
       - name: Echo
         run: |
