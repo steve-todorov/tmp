@@ -14,4 +14,4 @@ jobs:
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
-          echo "Var: ${{ (vars.NUM+1) }}"
+          echo "Var sum: $(("${{ vars.NUM }}" + 1))"
