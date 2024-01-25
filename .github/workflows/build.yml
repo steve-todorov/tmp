@@ -22,6 +22,7 @@ jobs:
           echo $RUNNER_TEMP
           echo "github.repository: ${{ github.repository }}"
           echo "github.ref: ${{ github.ref }}"
+          echo "build job url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
