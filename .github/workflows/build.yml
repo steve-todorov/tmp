@@ -33,6 +33,9 @@ jobs:
           echo "Concurrency group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}"
           echo "Cancel in progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'false' || 'true' }}"
 
+      - name: env
+        run: export | grep -vi "token"
+
       - name: Counter
         id: incremented
         run: |
