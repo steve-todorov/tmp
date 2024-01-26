@@ -21,6 +21,8 @@ jobs:
         run: |
           echo $RUNNER_TEMP
           echo "github.run_id: ${{ github.run_id }}"
+          echo "github.run_number: ${{ github.run_number }}"
+          echo "github.run_attempt: ${{ github.run_attempt }}"
           echo "github.repository: ${{ github.repository }}"
           echo "github.ref: ${{ github.ref }}"
           echo "build job url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
