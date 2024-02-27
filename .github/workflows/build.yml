@@ -48,6 +48,10 @@ jobs:
             echo "This workflow was triggered automatically."
           fi
 
+      - name: Trigger only on dispatch.
+        if: github.event_name == "workflow_dispatch"
+        run: echo "This workflow was triggered automatically."
+
       - name: Counter
         id: incremented
         run: |
