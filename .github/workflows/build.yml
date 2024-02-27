@@ -39,6 +39,15 @@ jobs:
       - name: env
         run: export | grep -vi "token"
 
+
+      - name: Check if triggered manually
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "This workflow was triggered manually."
+          else
+            echo "This workflow was triggered automatically."
+          fi
+
       - name: Counter
         id: incremented
         run: |
