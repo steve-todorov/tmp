@@ -1,4 +1,11 @@
 on:
+  push:
+    branches:
+      - 'main'
+      - '[0-9]+**'
+      - '[a-zA-Z]+/[0-9]+**'
+      - '!old/**'
+      - '!nobuild/**'
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
