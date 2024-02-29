@@ -52,6 +52,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: echo "This workflow was triggered automatically."
 
+      - name: Print event object
+        run: echo '${{ toJson(github.event) }}' | jq .
+
+      - name: Print event.pull_request object
+        run: echo '${{ toJson(github.event.pull_request) }}' | jq .
+
       - name: Counter
         id: incremented
         run: |
