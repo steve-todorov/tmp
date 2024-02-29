@@ -39,7 +39,6 @@ jobs:
       - name: env
         run: export | grep -vi "token"
 
-
       - name: Check if triggered manually
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -57,6 +56,13 @@ jobs:
 
       - name: Print event.pull_request object
         run: echo '${{ toJson(github.event.pull_request) }}' | jq .
+
+      - name: Print pull_request info
+        run: |
+          echo 'PR number: ${{ github.event.pull_request.number }}'
+          echo 'PR source: ${{ github.event.pull_request.head.ref }}'
+          echo 'PR target: ${{ github.event.pull_request.base.ref }}'
+          
 
       - name: Counter
         id: incremented
