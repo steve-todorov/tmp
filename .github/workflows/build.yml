@@ -72,7 +72,6 @@ jobs:
           echo 'PR number: ${{ github.event.pull_request.number }}'
           echo 'PR source: ${{ github.event.pull_request.head.ref }}'
           echo 'PR target: ${{ github.event.pull_request.base.ref }}'
-          
 
       - name: Counter
         id: incremented
@@ -80,6 +79,17 @@ jobs:
           NUM=$(("${{ vars.NUM }}" + 1))
           echo "Var sum: $NUM"
           echo "number=$NUM" >> "$GITHUB_OUTPUT"
+
+      - name: Conditionally skip
+        id: conditional
+        if: ${{ inputs.DEPLOY == true }}
+        run: |
+          echo "Conditionally deploy.."
+
+      - name: Only when skipped.
+        if: ${{ steps.conditional.outputs.step_skipped == 'true' }}
+        run: |
+          # Your step 2 commands here
 
       - name: Update vars.NUM
         if: success() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY == true)
