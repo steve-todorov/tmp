@@ -88,8 +88,8 @@ jobs:
 
       - name: Print step outputs
         run: |
-          echo "${{ toJSON(steps.conditional) }}" | jq
-          echo "${{ toJSON(steps.incremented) }}" | jq
+          echo '${{ toJSON(steps.conditional) }}' | jq
+          echo '${{ toJSON(steps.incremented) }}' | jq
 
       - name: Only when skipped.
         if: ${{ steps.conditional.outcome == 'skipped' }}
