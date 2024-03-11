@@ -86,6 +86,10 @@ jobs:
         run: |
           echo "Conditionally deploy.."
 
+      - name: Print step outputs
+        run: |
+          echo "${{ toJSON(steps.conditional.outputs) }}"
+
       - name: Only when skipped.
         if: ${{ steps.conditional.outputs.step_skipped == 'true' }}
         run: |
