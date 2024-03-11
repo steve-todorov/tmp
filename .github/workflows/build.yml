@@ -88,7 +88,7 @@ jobs:
 
       - name: Print step outputs
         run: |
-          echo "${{ toJSON(steps.conditional.outputs) }}"
+          echo "${{ toJSON(steps.conditional) }}"
 
       - name: Only when skipped.
         if: ${{ steps.conditional.outputs.step_skipped == 'true' }}
