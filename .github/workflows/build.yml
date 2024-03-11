@@ -111,4 +111,10 @@ jobs:
             
       - name: Sleep
         run: |
-          sleep 30
+          sleep 15
+
+      - name: Only when skipped, but not when cancelled.
+        if: ${{ steps.conditional.outcome == 'skipped' }}
+        run: |
+          echo "This task."         
+          sleep 10
