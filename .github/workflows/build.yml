@@ -29,7 +29,8 @@ jobs:
     steps:
       - name: Echo
         run: |
-          echo "$(date)"
+          echo $(date)
+          echo $(python3 -c 'import datetime; print(datetime.datetime.now().astimezone().strftime("%Y-%m-%dT%H:%M:%S %z %Z"))')
           echo $RUNNER_TEMP
           echo "github.run_id: ${{ github.run_id }}"
           echo "github.run_number: ${{ github.run_number }}"
