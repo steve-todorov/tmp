@@ -110,7 +110,7 @@ jobs:
               "name": "NUM", 
               "value": "${{ steps.incremented.outputs.number }}" 
             });
-            
+
       - name: Sleep
         run: |
           sleep 15
@@ -120,3 +120,9 @@ jobs:
         run: |
           echo "This task."         
           sleep 10
+
+  call_reusable:
+    uses: ./.github/workflows/reusable.yaml
+    secrets: inherit
+    with:
+      languages: '["java", "javascript", "c#"]'
