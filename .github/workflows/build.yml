@@ -122,7 +122,7 @@ jobs:
           sleep 10
 
   call_reusable:
-    uses: ./.github/workflows/reusable.yaml
+    uses: ./.github/workflows/reusable.yml
     secrets: inherit
     with:
       languages: '["java", "javascript", "c#"]'
