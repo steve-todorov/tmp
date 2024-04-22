@@ -48,4 +48,3 @@ body:
     attributes:
       label: Relevant LogRocket links
       description: Please copy and paste any relevant log output. This will be automatically formatted into list.
-      render: list
