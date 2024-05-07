@@ -110,6 +110,12 @@ jobs:
               "name": "NUM", 
               "value": "${{ steps.incremented.outputs.number }}" 
             });
+     
+      - name: Trigger only if commit contains ♯trigger
+        if: success() && contains(github.event.head_commit.message, '#trigger')
+        run: |
+          echo "Triggers ony if the last commit message contains the #trigger..."
+          git log -n 10 --format=one
 
       - name: Sleep
         run: |
