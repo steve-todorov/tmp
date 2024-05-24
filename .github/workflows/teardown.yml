@@ -23,3 +23,11 @@ jobs:
         run: |
           echo "IS_DRY_RUN: ${{ inputs.IS_DRY_RUN }}"
           echo "CLEAN_ARG: ${{ env.CLEAN_ARG }}"
+      - name: Run only in dry run
+        if: ${{ inputs.IS_DRY_RUN }}
+        run: |
+          echo "Dry run"
+      - name: Run when not in dry run
+        if: ${{ inputs.IS_DRY_RUN != true }}
+        run: |
+          echo "Clean run"
