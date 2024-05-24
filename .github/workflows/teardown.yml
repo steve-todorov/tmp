@@ -9,7 +9,7 @@ on:
         description: "Run scripts in dry-run mode?"
         type: boolean
         default: false
-        required: false
+        required: true
 
 jobs:
   teardown:
