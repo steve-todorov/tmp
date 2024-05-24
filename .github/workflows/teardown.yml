@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     env:
-      CLEAN_ARG: ${{ inputs.IS_DRY_RUN == "true" && '' || ' --clean ' }}
+      CLEAN_ARG: ${{ inputs.IS_DRY_RUN == 'true' && '' || ' --clean ' }}
 
     steps:
       - name: Example
