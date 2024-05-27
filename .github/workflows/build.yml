@@ -1,3 +1,5 @@
+name: Build
+
 on:
   push:
     branches:
@@ -116,7 +118,7 @@ jobs:
               "value": "${{ steps.incremented.outputs.number }}" 
             });
      
-      - name: Trigger only if commit contains ♯trigger
+      - name: Trigger only if commit body message contains ♯trigger
         if: success() && contains(github.event.head_commit.message, '#trigger')
         run: |
           echo "Triggers ony if the last commit message contains the #trigger..."
