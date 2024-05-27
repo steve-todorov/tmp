@@ -118,11 +118,7 @@ jobs:
               "value": "${{ steps.incremented.outputs.number }}" 
             });
      
-      - name: Trigger only if commit body message contains ♯trigger
-        if: success() && contains(github.event.head_commit.message, '#trigger')
-        run: |
-          echo "Triggers ony if the last commit message contains the #trigger..."
-          
+         
       - name: Sleep
         run: |
           sleep 15
@@ -132,6 +128,17 @@ jobs:
         run: |
           echo "This task."         
           sleep 10
+
+  # This works only on branches, if you have a PR the event does not have a `head_commit`, but a `pull_request` and it won't have the commit body message.
+  on-comment:
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.head_commit }}
+    steps: 
+      - name: Trigger only if commit body message contains ♯trigger
+        if: success() && contains(github.event.head_commit.message, '#trigger')
+        run: |
+          echo "Triggers ony if the last commit message contains the #trigger..."
+
 
   call_reusable:
     uses: ./.github/workflows/reusable.yml
