@@ -122,8 +122,7 @@ jobs:
         if: success() && contains(github.event.head_commit.message, '#trigger')
         run: |
           echo "Triggers ony if the last commit message contains the #trigger..."
-          git log -n 10 --format=one
-
+          
       - name: Sleep
         run: |
           sleep 15
