@@ -125,6 +125,15 @@ jobs:
       - name: List common tools if installed
         run: |
           sudo apt list --installed | grep -iE "bash|mc|terraform|ansible|git|python|python3|curl|wget|docker|jq|xq|pgsql|postgres"
+
+      - name: Install ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository --yes --update ppa:ansible/ansible
+          sleep 2
+          sudo apt-get update
+          sudo apt-get install -y ansible
          
       - name: Sleep
         run: |
