@@ -124,7 +124,7 @@ jobs:
          
       - name: List common tools if installed
         run: |
-          sudo apt list --installed | grep -iE "mc|terraform|ansible|git|python|python3|curl|wget|docker|jq|xq|pgsql|postgres"
+          sudo apt list --installed | grep -iE "bash|mc|terraform|ansible|git|python|python3|curl|wget|docker|jq|xq|pgsql|postgres"
          
       - name: Sleep
         run: |
