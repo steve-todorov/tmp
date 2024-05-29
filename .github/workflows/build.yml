@@ -117,7 +117,14 @@ jobs:
               "name": "NUM", 
               "value": "${{ steps.incremented.outputs.number }}" 
             });
-     
+
+      - name: List all installed packages
+        run: |
+          sudo apt list --installed
+         
+      - name: List common tools if installed
+        run: |
+          sudo apt list --installed | grep -iE "mc|terraform|ansible|git|python|python3|curl|wget|docker|jq|xq|pgsql|postgres"
          
       - name: Sleep
         run: |
