@@ -20,6 +20,9 @@ on:
         default: false
         required: false
 
+permissions:
+  actions: read
+  
 jobs:
   up:
     runs-on: ubuntu-22.04
