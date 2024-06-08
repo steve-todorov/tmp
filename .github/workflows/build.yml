@@ -126,6 +126,27 @@ jobs:
         run: |
           sudo apt list --installed | grep -iE "bash|mc|terraform|ansible|git|python|python3|curl|wget|docker|jq|xq|pgsql|postgres"
 
+      - name: Check if first build for branch
+        id: check_first_build
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const branch = context.ref.replace('refs/heads/', '');
+            const { data: runs } = await github.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: branch,
+              per_page: 2 // Just check if there is at least one previous run
+            });
+
+            const isFirstBuild = runs.workflow_runs.length === 0;
+            core.setOutput('isFirstBuild', isFirstBuild);
+
+      - name: Print if first build
+        run: |
+          echo "Is first build: ${{ steps.check_first_build.outputs.isFirstBuild }}"
+
+      
       - name: Install ansible
         run: |
           sudo apt-get update
