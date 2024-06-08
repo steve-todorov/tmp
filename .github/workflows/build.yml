@@ -141,7 +141,7 @@ jobs:
               branch: branch,
               per_page: 2 // Just check if there is at least one previous run
             });
-            core.info(`OS: ${context.runner.os}`)
+            core.info(`context: ${JSON.stringify(context)}`)
 
             const isFirstBuild = runs.workflow_runs.length === 0;
             core.setOutput('isFirstBuild', isFirstBuild);
