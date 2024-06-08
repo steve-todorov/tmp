@@ -135,7 +135,7 @@ jobs:
         with:
           script: |
             const branch = context.ref.replace('refs/heads/', '');
-            const { data: runs } = await github.actions.listWorkflowRunsForRepo({
+            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               branch: branch,
