@@ -16,9 +16,10 @@ on:
     inputs:
       DEPLOY:
         type: boolean
-        description: Deploy artifacts
+        description: Deploy artifacts 
         default: false
-        required: false
+        # This needs to be true or the value will be empty when triggered programatically! 
+        required: true
 
 permissions:
   actions: read
