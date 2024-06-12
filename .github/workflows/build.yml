@@ -19,7 +19,17 @@ on:
         description: Deploy artifacts 
         default: false
         # This needs to be true or the value will be empty when triggered programatically! 
-        required: true
+        required: false
+      BUILD_RELEASE_AAB:
+        type: boolean
+        description: Build release AAB
+        default: false
+        required: false
+      SIGN_RELEASE_AAB:
+        type: boolean
+        description: Sign release AAB
+        default: false
+        required: false
 
 permissions:
   actions: read
@@ -43,11 +53,6 @@ jobs:
           echo "github.run_attempt: ${{ github.run_attempt }}"
           echo "github.repository: ${{ github.repository }}"
           echo "github.ref: ${{ github.ref }}"
-          echo "github.event: ${{ toJSON(github.event) }}"
-          echo "github.event.head_commit: ${{ toJSON(github.event.head_commit) }}"
-          echo "github.event.head_commit.body: ${{ toJSON(github.event.head_commit.body) }}"
-          echo "github.event.pull_request.head.commit.message: ${{ github.event.pull_request.head.commit.message }}"
-          echo "github.event.pull_request.body: ${{ github.event.pull_request.body }}"
           echo "build job url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
@@ -58,6 +63,12 @@ jobs:
           echo "Is production: ${{ github.ref == 'refs/heads/production' && 'yes' || 'no' }}"
           echo "Concurrency group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}"
           echo "Cancel in progress: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'false' || 'true' }}"
+          echo "github.event: ${{ toJSON(github.event) }}"
+          echo "github.event.head_commit: ${{ toJSON(github.event.head_commit) }}"
+          echo "github.event.head_commit.body: ${{ toJSON(github.event.head_commit.body) }}"
+          echo "github.event.pull_request.head.commit.message: ${{ github.event.pull_request.head.commit.message }}"
+          echo "github.event.pull_request.body: ${{ github.event.pull_request.body }}"
+
 
       - name: env
         run: export | grep -vi "token"
@@ -150,6 +161,16 @@ jobs:
       - name: Print if first build
         run: |
           echo "Is first build: ${{ steps.check_first_build.outputs.isFirstBuild }}"
+
+      - name: Build release AAB
+        if: success() && (github.ref == 'refs/heads/production' || inputs.BUILD_RELEASE_AAB == true)
+        run: |
+          echo "Build release AAB"
+
+      - name: Import keystore
+        if: success() && (github.ref == 'refs/heads/production' || (inputs.BUILD_RELEASE_AAB == true && inputs.SIGN_RELEASE_AAB == true))
+        run: |
+          echo "Import keystore"
 
       
       - name: Install ansible
