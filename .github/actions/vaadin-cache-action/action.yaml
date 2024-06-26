@@ -1,0 +1,14 @@
+name: Vaadin Cache
+description: Saves and Restores Vaadin related artifacts
+runs:
+  using: 'node20'
+  main: 'index.js'
+  post: 'index.js'
+inputs:
+  branch:
+    description: Current branch
+    required: true
+  write:
+    description: Write cache back
+    required: false
+    default: true

@@ -1,0 +1,63 @@
+name: Action cache
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      DEPLOY:
+        type: boolean
+        description: Deploy artifacts 
+        default: false
+        # This needs to be true or the value will be empty when triggered programatically! 
+        required: false
+      BUILD_RELEASE_AAB:
+        type: boolean
+        description: Build release AAB
+        default: false
+        required: false
+      SIGN_RELEASE_AAB:
+        type: boolean
+        description: Sign release AAB
+        default: false
+        required: false
+
+permissions:
+  actions: read
+  
+jobs:
+  up:
+    runs-on: ubuntu-22.04
+    #runs-on: macos-13
+    concurrency:
+      group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
+      #cancel-in-progress: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/production' && inputs.DEPLOY == false }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - run: corepack enable
+      - name: Set up npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
+          cache-dependency-path: |
+            ./.github/actions/vaadin-cache-action/pnpm-lock.yaml
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Install vaadin-cache-action dependencies
+        working-directory: ./.github/actions/vaadin-cache-action
+        run: pnpm install
+
+      - name: Vaadin Cache
+        uses: ./.github/actions/vaadin-cache-action
+        with:
+          branch: ${{ github.ref_name }}
