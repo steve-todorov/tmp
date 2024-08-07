@@ -73,6 +73,37 @@ jobs:
       - name: env
         run: export | grep -vi "token"
 
+      - name: Check if PR is from a fork
+        id: check-fork
+        run: |
+          echo "GITHUB_HEAD_REF: ${{ github.head_ref }}"
+          echo "GITHUB_BASE_REF: ${{ github.base_ref }}"
+          echo "GITHUB_REPOSITORY: ${{ github.repository }}"
+          echo "GITHUB_EVENT_PATH: ${{ github.event_path }}"
+
+          BASE_REPO=${{ github.event.pull_request.base.repo.full_name }}
+          HEAD_REPO=${{ github.event.pull_request.head.repo.full_name }}
+
+          echo "BASE_REPO: $BASE_REPO"
+          echo "HEAD_REPO: $HEAD_REPO"
+
+          if [ "$BASE_REPO" != "$HEAD_REPO" ]; then
+            echo "This is a PR from a forked repository."
+            echo "::set-output name=is_fork::true"
+          else
+            echo "This is a PR from the same repository."
+            echo "::set-output name=is_fork::false"
+          fi
+
+      - name: Take action if PR is from a fork
+        if: steps.check-fork.outputs.is_fork == 'true'
+        run: echo "This PR is from a fork. Taking appropriate actions."
+
+      - name: Take action if PR is not from a fork
+        if: steps.check-fork.outputs.is_fork == 'false'
+        run: echo "This PR is from the same repository. Taking appropriate actions."
+
+
       - name: Check if triggered manually
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -171,7 +202,6 @@ jobs:
         if: success() && (github.ref == 'refs/heads/production' || (inputs.BUILD_RELEASE_AAB == true && inputs.SIGN_RELEASE_AAB == true))
         run: |
           echo "Import keystore"
-
       
       - name: Install ansible
         run: |
