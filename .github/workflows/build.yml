@@ -123,6 +123,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: echo "This workflow was triggered automatically."
 
+      - name: Get link to Action Run
+        run: echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Get link to Action Run and the Job
+        run: echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs/${{ github.job }}"
+
       - name: Print event object
         run: echo '${{ toJson(github.event) }}' | jq .
 
