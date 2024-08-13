@@ -126,8 +126,15 @@ jobs:
       - name: Get link to Action Run
         run: echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-      - name: Get link to Action Run and the Job
-        run: echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs/${{ github.job }}"
+      # Does not work, because the `github.job` returns the job name.
+      #- name: Get link to Action Run and the Job
+      #  run: echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs/${{ github.job }}"
+
+      - name: Get link to Action Run and job.
+        env:
+         GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: gh run --repo ${{ github.repository }} view ${{ github.run_id }} --json jobs --jq '.jobs[] | select(.name == "${{ github.job }}") | .url'
 
       - name: Print event object
         run: echo '${{ toJson(github.event) }}' | jq .
