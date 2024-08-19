@@ -89,10 +89,10 @@ jobs:
 
           if [ "$BASE_REPO" != "$HEAD_REPO" ]; then
             echo "This is a PR from a forked repository."
-            echo "::set-output name=is_fork::true"
+            echo is_fork=true" >> "$GITHUB_OUTPUT"
           else
             echo "This is a PR from the same repository."
-            echo "::set-output name=is_fork::false"
+            echo "is_fork=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Take action if PR is from a fork
@@ -103,12 +103,20 @@ jobs:
         if: github.event.pull_request.base.repo.full_name != github.event.pull_request.head.repo.full_name
         run: echo "This PR is from a fork. Taking appropriate actions."
 
+      - name: Take action if PR is from fork (style 3)
+        if: steps.check-fork.outputs.is_fork
+        run: echo "This PR is from a fork. Taking appropriate actions."
+
       - name: Take action if PR is not from a fork
         if: steps.check-fork.outputs.is_fork == 'false'
         run: echo "This PR is from the same repository. Taking appropriate actions."
 
-      - name: Take action if PR is not from a fork
+      - name: Take action if PR is not from a fork (style 2)
         if: github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name
+        run: echo "This PR is from the same repository. Taking appropriate actions."
+
+      - name: Take action if PR is not from a fork (style 3)
+        if: ${{ !steps.check-fork.outputs.is_fork }}
         run: echo "This PR is from the same repository. Taking appropriate actions."
 
       - name: Check if triggered manually
