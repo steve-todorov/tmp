@@ -89,7 +89,7 @@ jobs:
 
           if [ "$BASE_REPO" != "$HEAD_REPO" ]; then
             echo "This is a PR from a forked repository."
-            echo is_fork=true" >> "$GITHUB_OUTPUT"
+            echo "is_fork=true" >> "$GITHUB_OUTPUT"
           else
             echo "This is a PR from the same repository."
             echo "is_fork=false" >> "$GITHUB_OUTPUT"
