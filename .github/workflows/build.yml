@@ -96,7 +96,7 @@ jobs:
           fi
 
       - name: Take action if PR is from a fork
-        if: steps.check-fork.outputs.is_fork == 'true'
+        if: steps.check-fork.outputs.is_fork == true
         run: echo "This PR is from a fork. Taking appropriate actions."
 
       - name: Take action if PR is from fork (style 2)
@@ -108,7 +108,7 @@ jobs:
         run: echo "This PR is from a fork. Taking appropriate actions."
 
       - name: Take action if PR is not from a fork
-        if: steps.check-fork.outputs.is_fork == 'false'
+        if: steps.check-fork.outputs.is_fork == false
         run: echo "This PR is from the same repository. Taking appropriate actions."
 
       - name: Take action if PR is not from a fork (style 2)
@@ -116,7 +116,7 @@ jobs:
         run: echo "This PR is from the same repository. Taking appropriate actions."
 
       - name: Take action if PR is not from a fork (style 3)
-        if: ${{ !steps.check-fork.outputs.is_fork }}
+        if: steps.check-fork.outputs.is_fork == false
         run: echo "This PR is from the same repository. Taking appropriate actions."
 
       - name: Check if triggered manually
