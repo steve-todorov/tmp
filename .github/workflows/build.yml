@@ -46,6 +46,13 @@ jobs:
       FOO: BAR
       # ENV_TEST: ${{ runner.temp }}/keychain.keychain-db
     steps:
+      - name: Checkout
+        uses: actions/checkout@4
+
+      - name: Dynamic variables
+        run: devops/buildIOSVars.sh $IS_FORCE_RELEASE >> $GITHUB_ENV
+
+    
       - name: Echo
         run: |
           echo $(date)
