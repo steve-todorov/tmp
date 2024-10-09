@@ -50,7 +50,7 @@ jobs:
         run: |
           echo $(date)
           echo $(python3 -c 'import datetime; print(datetime.datetime.now().astimezone().strftime("%Y-%m-%dT%H:%M:%S %z %Z"))')
-          echo "Temp: $RUNNER_TEMP"
+          echo "Temp: $RUNNER_TEMP / $TEMP"
           echo "Env Test: $ENV_TEST / ${{ env.ENV_TEST }}"
           echo "github.run_id: ${{ github.run_id }}"
           echo "github.run_number: ${{ github.run_number }}"
