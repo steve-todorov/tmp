@@ -43,7 +43,7 @@ jobs:
       #cancel-in-progress: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/production' && inputs.DEPLOY == false }}
       cancel-in-progress: false
     env:
-      ENV_TEST: "${{ runner.temp }}/keychain.keychain-db"
+      ENV_TEST: ${{ runner.temp }}/keychain.keychain-db
     steps:
       - name: Echo
         run: |
