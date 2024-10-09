@@ -74,6 +74,19 @@ jobs:
           echo "github.event.pull_request.head.commit.message: ${{ github.event.pull_request.head.commit.message }}"
           echo "github.event.pull_request.body: ${{ github.event.pull_request.body }}"
 
+      - name: "Script output to env"
+        run: |
+          echo "#!/bin/bash" >> ./script.sh
+          echo "declare -A gh_env_vars" >> ./script.sh
+          echo "TEMP=\${RUNNER_TEMP:-\$TEMP}" >> ./script.sh
+          echo "IS_FORCE_RELEASE=${1-:false}" >> ./script.sh
+          echo "for var in \"\${!variables[@]}"; do" >> ./script.sh
+          echo "  echo \"\$var=\${variables[\$var]}\" " >> ./script.sh
+          echo "done" >> ./script.sh
+          cat ./script.sh
+          bash ./script.sh $GITHUB_ENV
+
+
 
       - name: env
         run: export | grep -vi "token"
