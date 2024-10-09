@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Dynamic variables
-        run: devops/buildIOSVars.sh $IS_FORCE_RELEASE >> $GITHUB_ENV
+        run: bash devops/buildIOSVars.sh $IS_FORCE_RELEASE >> $GITHUB_ENV
 
     
       - name: Echo
