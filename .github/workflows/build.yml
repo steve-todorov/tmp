@@ -42,12 +42,15 @@ jobs:
       group: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' || inputs.DEPLOY) && 'concurrency-counter-increment' || github.run_id }}
       #cancel-in-progress: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/production' && inputs.DEPLOY == false }}
       cancel-in-progress: false
+    env:
+      ENV_TEST: "${{ env.RUNNER_TEMP }}/keychain.keychain-db"
     steps:
       - name: Echo
         run: |
           echo $(date)
           echo $(python3 -c 'import datetime; print(datetime.datetime.now().astimezone().strftime("%Y-%m-%dT%H:%M:%S %z %Z"))')
-          echo $RUNNER_TEMP
+          echo "Temp: $RUNNER_TEMP"
+          echo "Env Test: $ENV_TEST"
           echo "github.run_id: ${{ github.run_id }}"
           echo "github.run_number: ${{ github.run_number }}"
           echo "github.run_attempt: ${{ github.run_attempt }}"
