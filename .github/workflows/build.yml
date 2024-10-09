@@ -249,9 +249,11 @@ jobs:
   on-comment:
     runs-on: ubuntu-22.04
     if: ${{ github.event.head_commit }}
+    env: 
+      TRIGGER: contains(github.event.head_commit.message, '#trigger')
     steps: 
       - name: Trigger only if commit body message contains ♯trigger
-        if: success() && contains(github.event.head_commit.message, '#trigger')
+        if: success() && env.TRIGGER == 'true'
         run: |
           echo "Triggers ony if the last commit message contains the #trigger..."
 
