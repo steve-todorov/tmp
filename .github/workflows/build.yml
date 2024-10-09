@@ -43,7 +43,8 @@ jobs:
       #cancel-in-progress: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/production' && inputs.DEPLOY == false }}
       cancel-in-progress: false
     env:
-      ENV_TEST: ${{ runner.temp }}/keychain.keychain-db
+      FOO: BAR
+      # ENV_TEST: ${{ runner.temp }}/keychain.keychain-db
     steps:
       - name: Echo
         run: |
@@ -56,6 +57,7 @@ jobs:
           echo "github.run_attempt: ${{ github.run_attempt }}"
           echo "github.repository: ${{ github.repository }}"
           echo "github.ref: ${{ github.ref }}"
+          echo "runner.temp: ${{ runner.temp }}"
           echo "build job url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
