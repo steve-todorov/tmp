@@ -17,10 +17,11 @@ jobs:
           sudo apt-get update
           sudo apt-get --yes install postgresql-client-17
           # Add PostgreSQL 17 binaries to PATH
-          echo "/usr/lib/postgresql/17/bin" | sudo tee /etc/profile.d/pg_path.sh
           echo "export PATH=/usr/lib/postgresql/17/bin:\$PATH" >> "$GITHUB_ENV"
 
 
       - name: Check version
         run: |
           psql --version
+          pg_dump --version
+          pg_restore --version
