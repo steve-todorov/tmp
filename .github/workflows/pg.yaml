@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
 
+      - name: List installed
+        run: |
+          sudo apt list --installed | grep -i postgres
+
+
       - name: Install Postgres 17
         run: |
           # Setup Postgresql Apt repo
