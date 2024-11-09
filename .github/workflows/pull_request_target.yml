@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: pull_request_target test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  pull_request_target:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - name: Get current branch name
+        id: get_branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request_target" ]; then
+            echo "branch_name=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
+
+      - name: Publish
+        working-directory: docs
+        run: |
+          is_master=${{ env.get_branch == 'master' }}
+          is_fork=${{ github.event.pull_request.head.repo.fork == true }}
+          [[ "$is_master" == "true" && "$is_fork" == "false" ]] && args=" --prod "
