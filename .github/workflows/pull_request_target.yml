@@ -32,7 +32,6 @@ jobs:
           fi
 
       - name: Publish
-        working-directory: docs
         run: |
           is_master=${{ env.get_branch == 'master' }}
           is_fork=${{ github.event.pull_request.head.repo.fork == true }}
