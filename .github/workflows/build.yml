@@ -53,7 +53,11 @@ jobs:
         run: bash devops/buildIOSVars.sh $IS_FORCE_RELEASE >> $GITHUB_ENV
 
       - name: Secret masking from a script?
+        id: connection
         run: bash secret.sh
+
+      - name: Secret test?
+        run: echo "${{ steps.connection.outputs.top_secret }}"
     
       - name: Echo
         run: |
