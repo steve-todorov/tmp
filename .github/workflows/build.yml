@@ -56,8 +56,17 @@ jobs:
         id: connection
         run: bash secret.sh
 
-      - name: Secret test?
+      - name: Secret test in workflow?
         run: echo "${{ steps.connection.outputs.top_secret }}"
+
+      - name: Secret test in job summary?
+        run: |
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "user: fake" >> $GITHUB_STEP_SUMMARY
+          echo "pass: ${{ steps.connection.outputs.top_secret }}" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        
     
       - name: Echo
         run: |
