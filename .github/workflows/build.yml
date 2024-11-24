@@ -52,6 +52,8 @@ jobs:
       - name: Dynamic variables
         run: bash devops/buildIOSVars.sh $IS_FORCE_RELEASE >> $GITHUB_ENV
 
+      - name: Secret masking from a script?
+        run: bash secret.sh
     
       - name: Echo
         run: |
@@ -92,8 +94,6 @@ jobs:
           echo "done" >> ./script.sh
           cat ./script.sh
           bash ./script.sh $GITHUB_ENV
-
-
 
       - name: env
         run: export | grep -vi "token"
