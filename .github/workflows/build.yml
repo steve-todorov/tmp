@@ -79,13 +79,16 @@ jobs:
           echo "github.run_attempt: ${{ github.run_attempt }}"
           echo "github.repository: ${{ github.repository }}"
           echo "github.repository_id: ${{ github.repository_id }}"
-          echo "github.repository (owner; via split): ${{ github.repository.split('/')[0] }}"
-          echo "github.repository (name; via split): ${{ 'steve-todorov/' + github.repository.split('/')[1] }}"
+          # Not supported.
+          # https://github.com/actions/runner/issues/2125
+          #echo "github.repository (owner; via split): ${{ github.repository.split('/')[0] }}"
+          #echo "github.repository (name; via split): ${{ 'steve-todorov/' + github.repository.split('/')[1] }}"
           echo "github.ref: ${{ github.ref }}"
           echo "runner.temp: ${{ runner.temp }}"
           echo "build job url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           echo "Is fork: ${{ github.event.pull_request.head.repo.fork == true }}"
           echo "Repo: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "Repository nme: ${GITHUB_REPOSITORY#*/}"
           echo "Ref: ${{ github.head_ref || github.ref_name }}"
           echo "Deploy: ${{ inputs.DEPLOY }}"
           echo "Is deploy: ${{ inputs.DEPLOY && 'yes' || 'no' }}"
