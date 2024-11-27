@@ -34,7 +34,7 @@ jobs:
       - name: Secret check
         run: echo "$abc_pass"
 
-      - name: Check via step id
+      - name: Check output alias 
         run: |
-          echo "${{ steps.setup.outputs.abc_jdbc }}"
-          echo "${{ steps.setup.outputs.abc_pass }}"          
+          echo "${{ steps.setup.outputs.jdbc }}"
+          echo "${{ steps.setup.outputs.pass }}"          
