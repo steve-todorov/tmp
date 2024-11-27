@@ -23,6 +23,7 @@ jobs:
         run: | 
           vars="$(bash ./secret.sh abc)"
           echo "$vars" >> "$GITHUB_ENV"
+          echo "$vars" >> "$GITHUB_OUTPUT"
           source <(echo "$vars")
 
           echo "jdbc=$abc_jdbc" >> "$GITHUB_OUTPUT"
@@ -33,6 +34,12 @@ jobs:
       
       - name: Secret check
         run: echo "$abc_pass"
+
+
+      - name: Check output
+        run: |
+          echo "${{ steps.setup.outputs.abc_jdbc }}"
+          echo "${{ steps.setup.outputs.abc_pass }}"          
 
       - name: Check output alias 
         run: |
