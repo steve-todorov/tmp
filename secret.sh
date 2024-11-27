@@ -2,7 +2,7 @@
 
 # Just to be extra safe.
 PASSWORD="bazing"
-echo "::add-mask::${PASSWORD}"
+#echo "::add-mask::${PASSWORD}"
 
 OUTPUT_PREFIX=$1
 
