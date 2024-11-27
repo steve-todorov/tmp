@@ -21,7 +21,7 @@ jobs:
       - name: Setup
         id: setup
         run: | 
-          vars="$(./secret.sh abc)"
+          vars="$(bash ./secret.sh abc)"
           echo "$vars" >> "$GITHUB_ENV"
           source <(echo "$vars")
 
