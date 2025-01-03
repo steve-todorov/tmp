@@ -1,7 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
 name: CI
-run-name: "${{ github.ref == 'refs/heads/main' && 'apply: ' || 'plan: ' }} ${{ github.event.head_commit.message }}"
 
 # Controls when the workflow will run
 on:
@@ -17,7 +16,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Info
+      - name: [tmp] Info
         run: |
           df -h 
           free -h
