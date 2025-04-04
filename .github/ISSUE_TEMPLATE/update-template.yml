@@ -22,7 +22,7 @@ body:
     id: tasklist
     attributes:
       label: Task list
-      description: "- [ ] Check the change log\n- [ ] Determine and report any breaking changes\n- [ ] Apply into `staging` and verify everything works\n- [ ] Apply into `production` and verify everything works"
+      value: "- [ ] Check the change log\n- [ ] Determine and report any breaking changes\n- [ ] Apply into `staging` and verify everything works\n- [ ] Apply into `production` and verify everything works"
   - type: textarea
     id: useful-resources
     attributes:
