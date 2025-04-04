@@ -28,3 +28,4 @@ body:
     attributes:
       label: Useful resources
       description: Place any useful links or resources here.
+      value: ""
