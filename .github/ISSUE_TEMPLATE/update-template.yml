@@ -17,7 +17,7 @@ body:
     attributes:
       label: Notes
       description: Any notes go here.
-      value: ""
+      value: " "
   - type: textarea
     id: tasklist
     attributes:
