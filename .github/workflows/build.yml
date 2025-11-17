@@ -79,6 +79,7 @@ jobs:
           echo "github.run_attempt: ${{ github.run_attempt }}"
           echo "github.repository: ${{ github.repository }}"
           echo "github.repository_id: ${{ github.repository_id }}"
+          echo "github.job: ${{ github.job }}"
           # Not supported.
           # https://github.com/actions/runner/issues/2125
           #echo "github.repository (owner; via split): $ {{ github.repository.split('/')[0] }}"
