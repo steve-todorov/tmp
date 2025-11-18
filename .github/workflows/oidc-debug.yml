@@ -1,4 +1,4 @@
-name: Test Debugger Action
+name: OIDC Debugger Action
 on: 
   pull_request:
   workflow_dispatch:
