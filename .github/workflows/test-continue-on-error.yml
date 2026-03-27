@@ -26,6 +26,11 @@ jobs:
       - name: Docker push (passes)
         run: echo "Pushing docker image..."
 
+      - name: Fail if Quality Gate failed
+        run: |
+          echo "Quality Gate found violations — see the 'Quality Gate' step above for details."
+          exit 1
+
   deploy:
     needs: build
     if: fromJson(needs.build.outputs.isStaging)
