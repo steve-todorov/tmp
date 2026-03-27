@@ -1,0 +1,38 @@
+name: Test continue-on-error behavior
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      isStaging: ${{ steps.setenv.outputs.isStaging }}
+    steps:
+      - name: Set env
+        id: setenv
+        run: echo "isStaging=true" >> $GITHUB_OUTPUT
+
+      - name: Compile (passes)
+        run: echo "Compiling..."
+
+      - name: Quality Gate (fails on purpose)
+        continue-on-error: true
+        run: |
+          echo "Running quality gate..."
+          exit 1
+
+      - name: Docker push (passes)
+        run: echo "Pushing docker image..."
+
+  deploy:
+    needs: build
+    if: fromJson(needs.build.outputs.isStaging)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump needs.build context
+        run: echo '${{ toJson(needs.build) }}' | jq .
+
+      - name: Deploy
+        run: echo "Deploying... build result was ${{ needs.build.result }}"
